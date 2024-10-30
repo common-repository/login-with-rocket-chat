@@ -1,0 +1,37 @@
+{% extends "server/base.twig" %}
+
+{% block content %}
+    <h3>
+        Welcome to the {{site_name}}
+    </h3>
+    <p>
+        Would you like to give access the following data :
+    </p>
+    <ul>
+        <li>WordPress user profile data</li>
+        <ul><li>Email</li>
+        <li>Username</li>
+        <li>User Roles</li>
+		<li>Name</li>
+		<li>Display Name</li>
+		<li>Nick Name</li>
+		<li>Profile Picture</li>
+		</ul>
+    </ul>
+    
+    <p>Click the button below to complete the authorize request and grant an <code>{{ response_type == 'code' ? 'Authorization Code' : 'Access Token' }}</code>.
+    <ul class="authorize_options">
+        <li>
+            <form action="{{ path('authorize_post') ~ '?' ~ app.request.queryString }}" method="post">
+                <input type="submit" class="button authorize" value="Yes, I Authorize This Request" />
+                <input type="hidden" name="authorize" value="1" />
+            </form>
+        </li>
+        <li class="cancel">
+            <form id="cancel" action="{{ path('authorize_post') ~ '?' ~ app.request.queryString }}" method="post">
+                <a href="#" onclick="document.getElementById('cancel').submit()">cancel</a>
+                <input type="hidden" name="authorize" value="0" />
+            </form>
+        </li>
+    </ul>
+{% endblock %}
